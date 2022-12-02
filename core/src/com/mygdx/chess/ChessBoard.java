@@ -1,6 +1,7 @@
 package com.mygdx.chess;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -8,6 +9,7 @@ public class ChessBoard {
 
     // Variables
     static ShapeRenderer shapeRenderer = new ShapeRenderer();
+    static SpriteBatch spriteBatch = new SpriteBatch();
 
     public static void createChessBoard() {
         final Color WHITE = new Color(0x9c9c9c);

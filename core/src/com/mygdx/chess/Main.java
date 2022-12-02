@@ -9,11 +9,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Main extends ApplicationAdapter {
 	// Creating Variables
-	SpriteBatch batch;
+//	SpriteBatch batch;
 
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
+//		batch = new SpriteBatch();
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
-		batch.dispose();
+//		batch.dispose();
 	}
 
 }
