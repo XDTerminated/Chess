@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class Main extends ApplicationAdapter {
-	// Test comment
 	// Creating Variables
 	SpriteBatch batch;
 	ShapeRenderer shapeRenderer;
