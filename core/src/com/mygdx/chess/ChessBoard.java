@@ -22,9 +22,17 @@ public class ChessBoard {
                     shapeRenderer.setColor(BLACK);
                 }
 
-                shapeRenderer.rect(j * 220, i * 220, 220, 220);
+                shapeRenderer.rect(j * 100, i * 100, 100, 100);
                 shapeRenderer.end();
             }
         }
+    }
+
+    public static void displayPieces(String FEN, Pieces[] avaiblePieces) {
+
+    }
+
+    public static void displayStartingPosition(Pieces[] pieces) {
+
     }
 }

@@ -10,8 +10,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Main extends ApplicationAdapter {
 	// Creating Variables
 	SpriteBatch batch;
-	ShapeRenderer shapeRenderer;
-	
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
