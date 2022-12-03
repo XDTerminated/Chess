@@ -10,9 +10,6 @@ import jdk.internal.foreign.CABI;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-
-//		int SCREEN_LENGTH =
-
 		config.setForegroundFPS(60);
 		config.setTitle("Chess");
 		config.setWindowedMode(800, 800);
