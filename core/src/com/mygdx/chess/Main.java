@@ -2,20 +2,11 @@ package com.mygdx.chess;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.TouchableAction;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 
 public class Main extends ApplicationAdapter {
@@ -25,12 +16,15 @@ public class Main extends ApplicationAdapter {
 	MyActor A;
 	MyInputProcessor inputProcessor;
 	Stage stage;
+	DragAndDrop dragAndDrop;
 
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+
+		dragAndDrop = new DragAndDrop();
 
 		stage = new Stage();
 		A = new MyActor("/Users/sgupta11/Desktop/Chess/Assets/wPawn.png", 100, 100);
@@ -41,18 +35,12 @@ public class Main extends ApplicationAdapter {
 		stage.addActor(A);
 
 		inputProcessor = new MyInputProcessor(A);
-
 		Gdx.input.setInputProcessor(inputProcessor);
 
 	}
 
 	@Override
 	public void render () {
-
-
-
-		A.setxPos(Gdx.input.getX());
-		A.setyPos(-Gdx.input.getY()/2);
 
 		ChessBoard.createChessBoard();
 

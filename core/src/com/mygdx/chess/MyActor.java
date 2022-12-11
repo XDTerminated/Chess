@@ -15,6 +15,7 @@ public class MyActor extends Actor {
     MyActor(String texture, int xPos, int yPos) {
         this.texture = new Texture(Gdx.files.internal(texture));
         this.sprite = new Sprite(this.texture);
+
         this.xPos = xPos;
         this.yPos = yPos;
     }

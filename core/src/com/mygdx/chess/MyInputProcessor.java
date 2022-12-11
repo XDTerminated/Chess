@@ -47,11 +47,9 @@ public class MyInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("Hello");
-        actor.setPosition(
-                initialActorPosition.x + screenX - initialTouchPosition.x,
-                initialActorPosition.y + screenY - initialTouchPosition.y
-        );
+
+        actor.setxPos(Gdx.input.getX() - actor.texture.getWidth()/2);
+        actor.setyPos(800 - Gdx.input.getY() - actor.texture.getHeight()/2);
         return true;
     }
 
