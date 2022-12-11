@@ -1,5 +1,7 @@
 package com.mygdx.chess;
 
+import com.badlogic.gdx.Gdx;
+
 public class Piece {
 
     // Variables
@@ -90,5 +92,7 @@ public class Piece {
     public MyActor getPIECE() {
         return this.PIECE;
     }
+
+
 
 }
