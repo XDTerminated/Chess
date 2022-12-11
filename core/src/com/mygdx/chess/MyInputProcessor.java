@@ -9,13 +9,8 @@ public class MyInputProcessor implements InputProcessor {
 
     private MyActor actor;
 
-    // Store the initial position of the actor and touch event
-    private Vector2 initialActorPosition;
-    private Vector2 initialTouchPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
-
     public MyInputProcessor(MyActor actor) {
         this.actor = actor;
-        initialActorPosition = new Vector2(actor.getXPOS(), actor.getYPOS());
     }
     public boolean keyDown(int keycode) {
         // Handle a key press event
