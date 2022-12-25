@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MyInputProcessor implements InputProcessor {
@@ -13,13 +11,12 @@ public class MyInputProcessor implements InputProcessor {
 
     private ArrayList<MyActor> actors;
     private MyActor touched;
-    private boolean isDragging;
-    private Stage stage;
+    private boolean isDragging = false;
+    final private Stage stage;
 
     public MyInputProcessor(ArrayList<MyActor> actors, Stage stage) {
         this.actors = actors;
         this.stage = stage;
-        touched = actors.get(0);
 
     }
     public boolean keyDown(int keycode) {
@@ -42,11 +39,16 @@ public class MyInputProcessor implements InputProcessor {
 
         Vector2 stageCoordinates = stage.screenToStageCoordinates(new Vector2((float) screenX, (float) screenY));
 
-        if (touched.getBounds().contains(stageCoordinates) || isDragging) {
+        for (MyActor a: actors){
+            if ((a.getBounds().getX() <= stageCoordinates.x && a.getBounds().getWidth() >= stageCoordinates.x && a.getBounds().getY() <= stageCoordinates.y && a.getBounds().getHeight() >= stageCoordinates.y) || isDragging) {
 
-            isDragging = true;
-            return true;
+                touched = a;
+                touched.toFront();
+                isDragging = true;
+                return true;
+            }
         }
+
         return false;
 
 
@@ -57,6 +59,20 @@ public class MyInputProcessor implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
         isDragging = false;
+        touched.setxPos(Math.round((int) (Math.round(touched.getXPOS() / 100.0) * 100)));
+        touched.setyPos(Math.round((int) (Math.round(touched.getYPOS() / 100.0) * 100)));
+
+        for (int i = 0; i < actors.toArray().length; i++) {
+            if (touched.getXPOS() == actors.get(i).getXPOS() && touched.getYPOS() == actors.get(i).getYPOS()) {
+                if (!actors.get(i).equals(touched)) {
+                    actors.get(i).remove();
+                    actors.remove(i);
+                    break;
+                }
+
+            }
+        }
+
         return true;
     }
 
