@@ -3,38 +3,35 @@ package com.mygdx.chess;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Main extends ApplicationAdapter {
 	// Creating Variables
 
 	SpriteBatch batch;
-	MyActor A;
+	ArrayList<MyActor> A;
 	MyInputProcessor inputProcessor;
-	Stage stage;
-	DragAndDrop dragAndDrop;
-
+	public Stage stage;
 
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 
-		dragAndDrop = new DragAndDrop();
-
 		stage = new Stage();
-		A = new MyActor("/Users/sgupta11/Desktop/Chess/Assets/wPawn.png", 100, 100);
-		A.setBounds(0, 0, A.texture().getWidth(), A.texture().getHeight());
+		A = new ArrayList<>(Arrays.asList(new MyActor("/Users/sgupta11/Desktop/Chess/Assets/wPawn.png", 100, 100)));
+		A.get(0).setBounds(0, 0, A.get(0).texture().getWidth(), A.get(0).texture().getHeight());
 
-		A.setTouchable(Touchable.enabled);
+		A.get(0).setTouchable(Touchable.enabled);
 
-		stage.addActor(A);
+		stage.addActor(A.get(0));
 
-		inputProcessor = new MyInputProcessor(A);
+		inputProcessor = new MyInputProcessor(A, stage);
 		Gdx.input.setInputProcessor(inputProcessor);
 
 	}

@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class MyActor extends Actor {
-    Texture texture;
-    Sprite sprite;
+    private Texture texture;
+    private Sprite sprite;
     private int xPos;
     private int yPos;
 
@@ -23,6 +24,14 @@ public class MyActor extends Actor {
     @Override
     public void draw(Batch batch, float alphaParent) {
         batch.draw(sprite, xPos, yPos, 100, 100);
+    }
+
+    public Rectangle getBounds() {
+        float x = xPos;
+        float y = yPos;
+        float width = getWidth();
+        float height = getHeight();
+        return new Rectangle(x, y, width + xPos, height + yPos);
     }
 
     public int getXPOS() {
