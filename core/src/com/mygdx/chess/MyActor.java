@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 public class MyActor extends Actor {
+
+    // Creates Variables
     private Texture texture;
     private Sprite sprite;
     private int xPos;
@@ -14,6 +16,7 @@ public class MyActor extends Actor {
     private String piece;
     private String color;
     private String chessPosition;
+    private boolean hasMoved = false;
 
     // Constructor
     MyActor(String texture, int xPos, int yPos, String piece, String color, String chessPosition) {
@@ -25,6 +28,13 @@ public class MyActor extends Actor {
         this.piece = piece;
         this.color = color;
         this.chessPosition = chessPosition;
+    }
+
+
+    // Temporary Fix
+    MyActor() {
+        this.xPos = 1000;
+        this.yPos = 10000;
     }
 
     // Override Functions
@@ -42,6 +52,7 @@ public class MyActor extends Actor {
     }
 
 
+
     // Getters
     public int getXPOS() {
         return this.xPos;
@@ -57,6 +68,10 @@ public class MyActor extends Actor {
 
     public String getPiece() {
         return this.piece;
+    }
+
+    public boolean getHasMoveD() {
+        return this.hasMoved;
     }
 
     public String getChessPosition() {
@@ -86,5 +101,9 @@ public class MyActor extends Actor {
         this.texture = texture;
 
         sprite.setTexture(this.texture);
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
     }
 }

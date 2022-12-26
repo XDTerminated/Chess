@@ -11,10 +11,11 @@ import java.util.ArrayList;
 public class ChessBoard {
 
     // Variables
-    private static int[][] chessBoard = new int[8][8];
+    private static MyActor[][] chessBoard;
     private static ArrayList<MyActor> pieces = new ArrayList<MyActor>();
     private static ArrayList<MyActor> whitePieces = new ArrayList<>();
     private static ArrayList<MyActor> darkPieces = new ArrayList<>();
+    private static String turn = "White";
 
 
     static ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -239,19 +240,36 @@ public class ChessBoard {
         darkPieces.add(bKing);
         darkPieces.add(bQueen);
 
+        chessBoard = new MyActor[8][8];
+
+        chessBoard[0][0] = wRook1; chessBoard[0][1] = wKnight1; chessBoard[0][2] = wBishop1; chessBoard[0][3] = wQueen; chessBoard[0][4]= wKing; chessBoard[0][5] = wBishop2; chessBoard[0][6] = wKnight2; chessBoard[0][7] = wRook2;
+        chessBoard[1][0] = wPawn1; chessBoard[1][1] = wPawn2; chessBoard[1][2] = wPawn3; chessBoard[1][3] = wPawn4; chessBoard[1][4] = wPawn5; chessBoard[1][5] = wPawn6; chessBoard[1][6] = wPawn7; chessBoard[1][7] = wPawn8;
+
+        chessBoard[7][0] = bRook1; chessBoard[7][1] = bKnight1; chessBoard[7][2] = bBishop1; chessBoard[7][3] = bQueen; chessBoard[7][4]= bKing; chessBoard[7][5] = bBishop2; chessBoard[7][6] = bKnight2; chessBoard[7][7] = bRook2;
+        chessBoard[6][0] = bPawn1; chessBoard[6][1] = bPawn2; chessBoard[6][2] = bPawn3; chessBoard[6][3] = bPawn4; chessBoard[6][4] = bPawn5; chessBoard[6][5] = bPawn6; chessBoard[6][6] = bPawn7; chessBoard[6][7] = bPawn8;
+
     }
 
-
+    // Returns white and black pieces (Getters)
     public static ArrayList<MyActor> returnPieces() {
         createPieces();
         return pieces;
     }
 
-    public static ArrayList<MyActor> returnWhitePieces() {
-        return whitePieces;
+    public static String getTurn() {
+        return turn;
     }
 
-    public static ArrayList<MyActor> returnDarkPieces() {
-        return darkPieces;
+    public static void setTurn(String x) {
+        turn = x;
     }
+
+    public static MyActor[][] getChessBoard() {
+        return chessBoard;
+    }
+
+    public static void updateChessBoard(MyActor[][] a) {
+        chessBoard = a;
+    }
+
 }

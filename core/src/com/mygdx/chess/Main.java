@@ -15,6 +15,7 @@ public class Main extends ApplicationAdapter {
 	public Stage stage;
 
 
+	// Creates sprites
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -31,6 +32,7 @@ public class Main extends ApplicationAdapter {
 
 	}
 
+	// Display on the screen
 	@Override
 	public void render () {
 
@@ -40,7 +42,7 @@ public class Main extends ApplicationAdapter {
 		stage.draw();
 	}
 
-
+	// Dispose
 	@Override
 	public void dispose () {
 		stage.dispose();

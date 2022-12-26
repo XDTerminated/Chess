@@ -8,17 +8,19 @@ import java.util.ArrayList;
 
 public class MyInputProcessor implements InputProcessor {
 
-
+    // Creates variables
     private ArrayList<MyActor> actors;
-    private MyActor touched;
+    private MyActor touched = new MyActor();
     private boolean isDragging = false;
     final private Stage stage;
 
+    // Constructor
     public MyInputProcessor(ArrayList<MyActor> actors, Stage stage) {
         this.actors = actors;
         this.stage = stage;
-
     }
+
+    // Override Functions
     public boolean keyDown(int keycode) {
         // Handle a key press event
         return false;
@@ -50,10 +52,7 @@ public class MyInputProcessor implements InputProcessor {
         }
 
         return false;
-
-
     }
-
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
@@ -61,6 +60,8 @@ public class MyInputProcessor implements InputProcessor {
         isDragging = false;
         touched.setxPos(Math.round((int) (Math.round(touched.getXPOS() / 100.0) * 100)));
         touched.setyPos(Math.round((int) (Math.round(touched.getYPOS() / 100.0) * 100)));
+
+        touched.setHasMoved(true);
 
         for (int i = 0; i < actors.toArray().length; i++) {
             if (touched.getXPOS() == actors.get(i).getXPOS() && touched.getYPOS() == actors.get(i).getYPOS()) {
@@ -79,7 +80,6 @@ public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
 
-
             if (isDragging) {
                 touched.setxPos(Gdx.input.getX() - touched.texture().getWidth() / 2);
                 touched.setyPos(800 - Gdx.input.getY() - touched.texture().getHeight() / 2);
@@ -88,7 +88,6 @@ public class MyInputProcessor implements InputProcessor {
             }
 
             return false;
-
     }
 
     @Override
