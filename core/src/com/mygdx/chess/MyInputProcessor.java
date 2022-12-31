@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
+import com.badlogic.gdx.audio.Sound;
 
 public class MyInputProcessor implements InputProcessor {
 
@@ -13,6 +14,9 @@ public class MyInputProcessor implements InputProcessor {
     private MyActor touched = new MyActor();
     private boolean isDragging = false;
     final private Stage stage;
+    private int touchedIndexX;
+    private int touchedIndexY;
+    Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
 
     // Constructor
     public MyInputProcessor(ArrayList<MyActor> actors, Stage stage) {
@@ -41,25 +45,48 @@ public class MyInputProcessor implements InputProcessor {
 
         Vector2 stageCoordinates = stage.screenToStageCoordinates(new Vector2((float) screenX, (float) screenY));
 
-        for (MyActor a: actors){
+
+        for (MyActor a : actors) {
             if ((a.getBounds().getX() <= stageCoordinates.x && a.getBounds().getWidth() >= stageCoordinates.x && a.getBounds().getY() <= stageCoordinates.y && a.getBounds().getHeight() >= stageCoordinates.y) || isDragging) {
 
                 touched = a;
                 touched.toFront();
+
+                if (!isDragging) {
+                    touchedIndexX = (int) (touched.getYPOS() / 100);
+                    touchedIndexY = (int) (touched.getXPOS() / 100);
+                }
+
                 isDragging = true;
+
                 return true;
+
+            } else {
+                isDragging = false;
             }
+
         }
 
         return false;
+
+
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-        isDragging = false;
+        if (isDragging == false) {
+            touchedIndexX = 1000;
+            touchedIndexY = 1000;
+        }
+
+        if (!(touchedIndexX == 1000)) {
+            move.play();
+        }
+
         touched.setxPos(Math.round((int) (Math.round(touched.getXPOS() / 100.0) * 100)));
         touched.setyPos(Math.round((int) (Math.round(touched.getYPOS() / 100.0) * 100)));
+
 
         touched.setHasMoved(true);
 
@@ -73,6 +100,8 @@ public class MyInputProcessor implements InputProcessor {
 
             }
         }
+
+        isDragging = false;
 
         return true;
     }

@@ -30,6 +30,7 @@ public class Main extends ApplicationAdapter {
 		inputProcessor = new MyInputProcessor(pieces, stage);
 		Gdx.input.setInputProcessor(inputProcessor);
 
+		ChessBoard.setTurn("White");
 	}
 
 	// Display on the screen
