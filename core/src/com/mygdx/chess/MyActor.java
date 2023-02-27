@@ -13,28 +13,15 @@ public class MyActor extends Actor {
     private Sprite sprite;
     private int xPos;
     private int yPos;
-    private String piece;
     private String color;
-    private String chessPosition;
-    private boolean hasMoved = false;
-
     // Constructor
-    MyActor(String texture, int xPos, int yPos, String piece, String color, String chessPosition) {
+    MyActor(String texture, int xPos, int yPos, String color) {
         this.texture = new Texture(Gdx.files.internal(texture));
         this.sprite = new Sprite(this.texture);
 
         this.xPos = xPos;
         this.yPos = yPos;
-        this.piece = piece;
         this.color = color;
-        this.chessPosition = chessPosition;
-    }
-
-
-    // Temporary Fix
-    MyActor() {
-        this.xPos = 1000;
-        this.yPos = 10000;
     }
 
     // Override Functions
@@ -66,44 +53,16 @@ public class MyActor extends Actor {
         return this.color;
     }
 
-    public String getPiece() {
-        return this.piece;
-    }
-
-    public boolean getHasMoveD() {
-        return this.hasMoved;
-    }
-
-    public String getChessPosition() {
-        return this.chessPosition;
-    }
-
     public Texture texture() {
         return this.texture;
     }
 
     // Setters
-
     public void setxPos(int xPos) {
         this.xPos = xPos;
     }
 
     public void setyPos(int yPos) {
         this.yPos = yPos;
-    }
-
-    public void setChessPosition(String chessPosition) {
-        this.chessPosition = chessPosition;
-    }
-
-    public void setPiece(String piece, Texture texture) {
-        this.piece = piece;
-        this.texture = texture;
-
-        sprite.setTexture(this.texture);
-    }
-
-    public void setHasMoved(boolean hasMoved) {
-        this.hasMoved = hasMoved;
     }
 }

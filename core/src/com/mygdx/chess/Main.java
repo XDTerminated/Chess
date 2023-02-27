@@ -14,7 +14,6 @@ public class Main extends ApplicationAdapter {
 	MyInputProcessor inputProcessor;
 	public Stage stage;
 
-
 	// Creates sprites
 	@Override
 	public void create () {

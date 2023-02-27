@@ -16,7 +16,10 @@ public class MyInputProcessor implements InputProcessor {
     final private Stage stage;
     private int touchedIndexX;
     private int touchedIndexY;
+    String turn = Rules.turn("Black");
     Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
+    Sound capture = Gdx.audio.newSound(Gdx.files.internal("capture.mp3"));
+
 
     // Constructor
     public MyInputProcessor(ArrayList<MyActor> actors, Stage stage) {
@@ -75,30 +78,31 @@ public class MyInputProcessor implements InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
+
         if (isDragging == false) {
             touchedIndexX = 1000;
             touchedIndexY = 1000;
-        }
 
-        if (!(touchedIndexX == 1000)) {
-            move.play();
         }
-
         touched.setxPos(Math.round((int) (Math.round(touched.getXPOS() / 100.0) * 100)));
         touched.setyPos(Math.round((int) (Math.round(touched.getYPOS() / 100.0) * 100)));
 
 
-        touched.setHasMoved(true);
 
         for (int i = 0; i < actors.toArray().length; i++) {
             if (touched.getXPOS() == actors.get(i).getXPOS() && touched.getYPOS() == actors.get(i).getYPOS()) {
                 if (!actors.get(i).equals(touched)) {
                     actors.get(i).remove();
                     actors.remove(i);
+                    capture.play();
                     break;
                 }
 
             }
+        }
+
+        if (!(touchedIndexX == 1000)) {
+            move.play();
         }
 
         isDragging = false;
