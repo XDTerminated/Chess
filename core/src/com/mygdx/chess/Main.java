@@ -16,7 +16,6 @@ public class Main extends ApplicationAdapter {
 	// Creates sprites
 	@Override
 	public void create () {
-		ChessBoard.createChessBoard();
 		ChessBoard.createPieces();
 
 		batch = new SpriteBatch();
@@ -41,6 +40,9 @@ public class Main extends ApplicationAdapter {
 	// Display on the screen
 	@Override
 	public void render () {
+
+		ChessBoard.createChessBoard();
+
 		stage.act();
 		stage.draw();
 	}

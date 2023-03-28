@@ -47,26 +47,26 @@ public class ChessBoard {
         MyActor wPawn7 = new Pawn("wPawn.png", 600, 100, "W", "g2");
         MyActor wPawn8 = new Pawn("wPawn.png", 700, 100, "W", "h2");
         // Black Pawns
-        MyActor bPawn1 = new Pawn("wPawn.png", 0, 600, "B", "a7");
-        MyActor bPawn2 = new Pawn("wPawn.png", 100, 600, "B", "b7");
-        MyActor bPawn3 = new Pawn("wPawn.png", 200, 600, "B", "c7");
-        MyActor bPawn4 = new Pawn("wPawn.png", 300, 600, "B", "d7");
-        MyActor bPawn5 = new Pawn("wPawn.png", 400, 600, "B", "e7");
-        MyActor bPawn6 = new Pawn("wPawn.png", 500, 600, "B", "f7");
-        MyActor bPawn7 = new Pawn("wPawn.png", 600, 600, "B", "g7");
-        MyActor bPawn8 = new Pawn("wPawn.png", 700, 600, "B", "h7");
+        MyActor bPawn1 = new Pawn("bPawn.png", 0, 600, "B", "a7");
+        MyActor bPawn2 = new Pawn("bPawn.png", 100, 600, "B", "b7");
+        MyActor bPawn3 = new Pawn("bPawn.png", 200, 600, "B", "c7");
+        MyActor bPawn4 = new Pawn("bPawn.png", 300, 600, "B", "d7");
+        MyActor bPawn5 = new Pawn("bPawn.png", 400, 600, "B", "e7");
+        MyActor bPawn6 = new Pawn("bPawn.png", 500, 600, "B", "f7");
+        MyActor bPawn7 = new Pawn("bPawn.png", 600, 600, "B", "g7");
+        MyActor bPawn8 = new Pawn("bPawn.png", 700, 600, "B", "h7");
         // White Pieces
         MyActor wRook1 = new Rook("wRook.png", 0, 0, "W", "a1");
-        MyActor wRook2 = new Rook("wRook.png", 0, 700, "W", "h1");
+        MyActor wRook2 = new Rook("wRook.png", 700, 0, "W", "h1");
 
-        MyActor wBishop1 = new Bishop("wBishop.png", 0, 200, "W", "c1");
-        MyActor wBishop2 = new Bishop("wBishop.png", 0, 500, "W", "f1");
+        MyActor wBishop1 = new Bishop("wBishop.png", 200, 0, "W", "c1");
+        MyActor wBishop2 = new Bishop("wBishop.png", 500, 0, "W", "f1");
 
-        MyActor wKnight1 = new Knight("wKnight.png", 0, 100, "W", "b1");
-        MyActor wKnight2 = new Knight("wKnight.png", 0, 600, "W", "g1");
+        MyActor wKnight1 = new Knight("wKnight.png", 100, 0, "W", "b1");
+        MyActor wKnight2 = new Knight("wKnight.png", 600, 0, "W", "g1");
 
-        MyActor wQueen = new Queen("wQueen.png", 0, 300, "W", "d1");
-        MyActor wKing = new King("wKing.png", 0, 400, "W", "e1");
+        MyActor wQueen = new Queen("wQueen.png", 300, 0, "W", "d1");
+        MyActor wKing = new King("wKing.png", 400, 0, "W", "e1");
         // Black Pieces
         MyActor bRook1 = new Rook("bRook.png", 0, 700, "B", "a8");
         MyActor bRook2 = new Rook("bRook.png", 700, 700, "B", "h8");
