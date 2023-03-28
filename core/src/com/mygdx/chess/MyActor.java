@@ -14,16 +14,23 @@ public class MyActor extends Actor {
     private int xPos;
     private int yPos;
     private String color;
+    String position;
     // Constructor
-    MyActor(String texture, int xPos, int yPos, String color) {
+    MyActor(String texture, int xPos, int yPos, String color, String position) {
         this.texture = new Texture(Gdx.files.internal(texture));
         this.sprite = new Sprite(this.texture);
 
         this.xPos = xPos;
         this.yPos = yPos;
         this.color = color;
+
+        this.position = position;
     }
 
+
+    MyActor() {
+
+    }
     // Override Functions
     @Override
     public void draw(Batch batch, float alphaParent) {
@@ -37,7 +44,6 @@ public class MyActor extends Actor {
         float height = getHeight();
         return new Rectangle(x, y, width + xPos, height + yPos);
     }
-
 
 
     // Getters
@@ -57,12 +63,20 @@ public class MyActor extends Actor {
         return this.texture;
     }
 
+    public String getPosition() {
+        return this.position;
+    }
+
     // Setters
-    public void setxPos(int xPos) {
+    public void setXPos(int xPos) {
         this.xPos = xPos;
     }
 
-    public void setyPos(int yPos) {
+    public void setYPos(int yPos) {
         this.yPos = yPos;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

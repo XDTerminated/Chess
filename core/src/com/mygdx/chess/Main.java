@@ -4,40 +4,43 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
-import java.util.ArrayList;
-
 public class Main extends ApplicationAdapter {
 	// Creating Variables
 	SpriteBatch batch;
-	ArrayList<MyActor> pieces;
+	MyActor[] whitePieces;
+	MyActor[] blackPieces;
+	MyActor[][] chessBoard;
 	MyInputProcessor inputProcessor;
 	public Stage stage;
 
 	// Creates sprites
 	@Override
 	public void create () {
+		ChessBoard.createChessBoard();
+		ChessBoard.createPieces();
+
 		batch = new SpriteBatch();
 		stage = new Stage();
 
-		pieces = ChessBoard.returnPieces();
+		whitePieces = ChessBoard.getWhitePieces();
+		blackPieces = ChessBoard.getBlackPieces();
+		chessBoard = ChessBoard.getChessBoard();
 
-		for (MyActor a: pieces) {
+		for (MyActor a : whitePieces) {
 			stage.addActor(a);
 		}
 
-		inputProcessor = new MyInputProcessor(pieces, stage);
-		Gdx.input.setInputProcessor(inputProcessor);
+		for (MyActor a : blackPieces) {
+			stage.addActor(a);
+		}
 
-		ChessBoard.setTurn("White");
+		inputProcessor = new MyInputProcessor(whitePieces, blackPieces, chessBoard, stage);
+		Gdx.input.setInputProcessor(inputProcessor);
 	}
 
 	// Display on the screen
 	@Override
 	public void render () {
-
-		ChessBoard.createChessBoard();
-
 		stage.act();
 		stage.draw();
 	}
@@ -47,6 +50,5 @@ public class Main extends ApplicationAdapter {
 	public void dispose () {
 		stage.dispose();
 		batch.dispose();
-
 	}
 }
