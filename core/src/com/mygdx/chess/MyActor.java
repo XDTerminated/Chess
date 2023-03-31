@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class MyActor extends Actor {
 
     // Creates Variables
+    private boolean isNull;
     private Texture texture;
     private Sprite sprite;
     private int xPos;
@@ -25,11 +26,12 @@ public class MyActor extends Actor {
         this.color = color;
 
         this.position = position;
+        this.isNull = false;
     }
 
 
     MyActor() {
-
+        this.isNull = true;
     }
     // Override Functions
     @Override
@@ -66,6 +68,9 @@ public class MyActor extends Actor {
     public String getPosition() {
         return this.position;
     }
+    public boolean getIsNull() {
+        return this.isNull;
+    }
 
     // Setters
     public void setXPos(int xPos) {
@@ -79,4 +84,5 @@ public class MyActor extends Actor {
     public void setPosition(String position) {
         this.position = position;
     }
+
 }
