@@ -9,18 +9,18 @@ import java.util.*;
 public class MyInputProcessor implements InputProcessor {
 
     // Creates variables
-    ArrayList<MyActor> pieces; // Stores white when its whites turn and black when its blacks turn.
-    ArrayList<MyActor> piecesOpposite; // Stores black when its whites turn and white when its black turns.
-    ArrayList<MyActor> whitePieces;
-    ArrayList<MyActor> blackPieces;
-    MyActor[][] chessBoard; // Computers internal memory of the chessboard
+    private ArrayList<MyActor> pieces; // Stores white when its whites turn and black when its blacks turn.
+    private ArrayList<MyActor> piecesOpposite; // Stores black when its whites turn and white when its black turns.
+    private ArrayList<MyActor> whitePieces;
+    private ArrayList<MyActor> blackPieces;
+    private MyActor[][] chessBoard; // Computers internal memory of the chessboard
     private MyActor touched = null; // ...
     private boolean isDragging = false;
     final private Stage stage;
     private int touchedIndexX;
     private int touchedIndexY;
-    Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
-    Sound capture = Gdx.audio.newSound(Gdx.files.internal("capture.mp3"));
+    private Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
+    private Sound capture = Gdx.audio.newSound(Gdx.files.internal("capture.mp3"));
 
 
     // Constructor
@@ -94,14 +94,40 @@ public class MyInputProcessor implements InputProcessor {
             return false;
         }
 
-        if (ChessBoard.getTurn().equals("Black")) {
-            ChessBoard.setTurn("White");
-        } else {
-            ChessBoard.setTurn("Black");
-        }
+        String s = touched.getPosition();
+        int initialX = (((int) s.charAt(0)) - 97) * 100; int initialY = (((int) s.charAt(1)) - 49) * 100;
 
         touched.setXPos(Math.round((int) (Math.round(touched.getXPOS() / 100.0) * 100)));
         touched.setYPos(Math.round((int) (Math.round(touched.getYPOS() / 100.0) * 100)));
+
+        for (int i = 0; i < pieces.size(); i++) {
+            if (touched.getXPOS() == pieces.get(i).getXPOS() && touched.getYPOS() == pieces.get(i).getYPOS()) {
+                if (touched != pieces.get(i)) {
+                    touched.setXPos(initialX);
+                    touched.setYPos(initialY);
+                    touched = null;
+                    isDragging = false;
+                    return false;
+                }
+            }
+        }
+
+        if ((touched.getXPOS() == initialX) && (touched.getYPOS() == initialY)) {
+            touched.setXPos(initialX);
+            touched.setYPos(initialY);
+            touched = null;
+            isDragging = false;
+            return false;
+        }
+
+        if (touched.getXPOS() < 0 || touched.getXPOS() > 700 || touched.getYPOS() < 0 || touched.getYPOS() > 700) {
+            touched.setXPos(initialX);
+            touched.setYPos(initialY);
+            touched = null;
+            isDragging = false;
+            return false;
+        }
+
 
         for (int i = 0; i < piecesOpposite.size(); i++) {
             if (touched.getXPOS() == piecesOpposite.get(i).getXPOS() && touched.getYPOS() == piecesOpposite.get(i).getYPOS()) {
@@ -113,12 +139,21 @@ public class MyInputProcessor implements InputProcessor {
             }
         }
 
+
         if (!capturePlayed) {
             move.play();
         }
 
 
         isDragging = false;
+
+        if (ChessBoard.getTurn().equals("Black")) {
+            ChessBoard.setTurn("White");
+        } else {
+            ChessBoard.setTurn("Black");
+        }
+
+        touched = null;
 
         return true;
     }

@@ -26,12 +26,10 @@ public class MyActor extends Actor {
         this.color = color;
 
         this.position = position;
-        this.isNull = false;
     }
 
 
     MyActor() {
-        this.isNull = true;
     }
     // Override Functions
     @Override
@@ -67,9 +65,6 @@ public class MyActor extends Actor {
 
     public String getPosition() {
         return this.position;
-    }
-    public boolean getIsNull() {
-        return this.isNull;
     }
 
     // Setters
