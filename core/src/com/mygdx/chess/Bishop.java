@@ -11,5 +11,8 @@ public class Bishop extends MyActor {
     public int getValue() {
         return this.value;
     }
+    public String getName() {
+        return "Bishop";
+    }
 
 }

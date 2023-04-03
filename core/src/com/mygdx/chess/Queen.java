@@ -12,5 +12,8 @@ public class Queen extends MyActor {
     public int getValue() {
         return this.value;
     }
+    public String getName() {
+        return "Queen";
+    }
 
 }

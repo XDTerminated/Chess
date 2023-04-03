@@ -10,6 +10,9 @@ public class Knight extends MyActor {
     public int getValue() {
         return this.value;
     }
+    public String getName() {
+        return "Knight";
+    }
 
     // Other methods
 

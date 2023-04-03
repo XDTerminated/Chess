@@ -10,4 +10,7 @@ public class Rook extends MyActor {
     public int getValue() {
         return this.value;
     }
+    public String getName() {
+        return "Rook";
+    }
 }

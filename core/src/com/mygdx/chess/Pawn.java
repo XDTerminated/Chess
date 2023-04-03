@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Pawn extends MyActor {
     private int pieceValue = 1;
-    private boolean hasMoved = false;
     private boolean canPromote = false;
     private String promoteTo = "";
 
@@ -13,12 +12,12 @@ public class Pawn extends MyActor {
     }
 
     // Accessors
-    public boolean getHasMoved() {
-        return this.hasMoved;
-    }
-
     public boolean getCanPromote() {
         return this.canPromote;
+    }
+
+    public String getName() {
+        return "Pawn";
     }
 
     public int getPieceValue() {
@@ -26,10 +25,6 @@ public class Pawn extends MyActor {
     }
 
     // Mutators
-    public void setHasMoved() {
-        this.hasMoved = true;
-    }
-
     public void setCanPromote(String promoteTo) {
         this.promoteTo = promoteTo;
     }

@@ -61,6 +61,7 @@ public class MyInputProcessor implements InputProcessor {
             piecesOpposite = whitePieces;
         }
 
+
         for (MyActor a : pieces) {
             if ((a.getBounds().getX() <= stageCoordinates.x && a.getBounds().getWidth() >= stageCoordinates.x && a.getBounds().getY() <= stageCoordinates.y && a.getBounds().getHeight() >= stageCoordinates.y) || isDragging) {
 
@@ -119,13 +120,37 @@ public class MyInputProcessor implements InputProcessor {
             isDragging = false;
             return false;
         }
-
         if (touched.getXPOS() < 0 || touched.getXPOS() > 700 || touched.getYPOS() < 0 || touched.getYPOS() > 700) {
             touched.setXPos(initialX);
             touched.setYPos(initialY);
             touched = null;
             isDragging = false;
             return false;
+        }
+
+        if (!Rules.isLegal(chessBoard, touched, touched.getXPOS() - initialX, touched.getYPOS() - initialY)) {
+            touched.setXPos(initialX);
+            touched.setYPos(initialY);
+            touched = null;
+            isDragging = false;
+            return false;
+        } else {
+
+            chessBoard[7 - (initialY/100)][(initialX/100)] = null;
+            chessBoard[7 - (touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
+        }
+
+        for (MyActor[] a : chessBoard) {
+            for (MyActor b: a) {
+                if (b!= null) {
+                    System.out.print(b.getName() + " ");
+                } else {
+                    System.out.print(" ");
+                }
+
+            }
+
+            System.out.println();
         }
 
 
@@ -138,6 +163,7 @@ public class MyInputProcessor implements InputProcessor {
                 break;
             }
         }
+
 
 
         if (!capturePlayed) {
@@ -153,8 +179,11 @@ public class MyInputProcessor implements InputProcessor {
             ChessBoard.setTurn("Black");
         }
 
-        touched = null;
 
+        String position = "" + (char)((int) touched.getXPOS()/100 + 97) + (char)((int) touched.getYPOS()/100 + 49);
+        touched.setPosition(position);
+
+        touched = null;
         return true;
     }
 
