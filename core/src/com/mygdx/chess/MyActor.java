@@ -10,12 +10,11 @@ public class MyActor extends Actor {
 
     // Creates Variables
     private boolean hasMoved = false;
-    private boolean isNull;
-    private Texture texture;
-    private Sprite sprite;
+    private final Texture texture;
+    private final Sprite sprite;
     private int xPos;
     private int yPos;
-    private String color;
+    private final String color;
     String position;
     // Constructor
     MyActor(String texture, int xPos, int yPos, String color, String position) {
@@ -30,8 +29,6 @@ public class MyActor extends Actor {
     }
 
 
-    MyActor() {
-    }
     // Override Functions
     @Override
     public void draw(Batch batch, float alphaParent) {
@@ -89,4 +86,12 @@ public class MyActor extends Actor {
         this.hasMoved = true;
     }
 
+    // Other methods - Overriden methods in other classes
+    public void setEnPassant(boolean enPassant) {
+
+    }
+
+    public boolean getEnPassant() {
+        return false;
+    }
 }

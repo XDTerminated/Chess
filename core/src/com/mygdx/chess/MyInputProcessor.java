@@ -50,7 +50,6 @@ public class MyInputProcessor implements InputProcessor {
     @Override // To Fix
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         touched = null;
-
         Vector2 stageCoordinates = stage.screenToStageCoordinates(new Vector2((float) screenX, (float) screenY));
         // Set the pieces to white/black depending on the turn
         if (ChessBoard.getTurn().equals("White")) {
@@ -136,8 +135,8 @@ public class MyInputProcessor implements InputProcessor {
             return false;
         } else {
 
-            chessBoard[7 - (initialY/100)][(initialX/100)] = null;
-            chessBoard[7 - (touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
+            chessBoard[(initialY/100)][(initialX/100)] = null;
+            chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
         }
 
         for (MyActor[] a : chessBoard) {

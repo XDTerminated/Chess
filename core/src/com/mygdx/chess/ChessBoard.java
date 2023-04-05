@@ -18,8 +18,8 @@ public class ChessBoard {
 
     // Creates Chess Board
     public static void createChessBoard() {
-        final Color WHITE = new Color(0x9c9c9c);
-        final Color BLACK = new Color(0x595959);
+        final Color WHITE = new Color(Color.valueOf("#f0d9b5"));
+        final Color BLACK = new Color(Color.valueOf("#b58863"));
         ScreenUtils.clear(252, 252, 252, 252);
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 16; j++) {
