@@ -7,10 +7,6 @@ public class Rules {
     public static boolean isLegal(MyActor[][] position, MyActor piece, int xChange, int yChange) {
         // Pawns
         if (piece.getName().equals("Pawn")) {
-            // If the piece is pinned to the king by an enemy piece
-            if (!isPinned(position, piece)) {
-//                return false;
-            }
             // Standard Pawn Pushes
             if ((position[(piece.getYPOS()/100)][((piece.getXPOS())/100)]) == null) {
                 if (!piece.getHasMoved()) {
@@ -82,11 +78,25 @@ public class Rules {
 
         }
 
+        // Queens
+        else if (piece.getName().equals("Queen")) {
+            if (xChange != 0) {
+                if (yChange/xChange == 0) {
+                    return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
+                }
+            } else if (xChange == 0) {
+                return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
+            }
+            if (Math.abs(yChange/xChange) == 1) {
+                return traceBackDiagonal(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
+            }
+        }
 
-        return false;
-    }
+        else if (piece.getName().equals("King")) {
 
-    public static boolean isPinned(MyActor[][] position, MyActor piece) {
+        }
+
+
         return false;
     }
 
@@ -121,6 +131,7 @@ public class Rules {
     }
 
     public static boolean traceBackVH(MyActor[][] position, MyActor piece, int x, int y, int xChange, int yChange) {
+
         if (xChange > 0) {
             if (position[x][y - 1] == null) {
                 return traceBackVH(position, piece, x, y - 1, xChange, yChange);

@@ -93,7 +93,7 @@ public class ChessBoard {
 
         // Store black pieces in chessboard
         chessBoard[6][0] = bPawn1; chessBoard[6][1] = bPawn2; chessBoard[6][2] = bPawn3; chessBoard[6][3] = bPawn4; chessBoard[6][4] = bPawn5; chessBoard[6][5] = bPawn6; chessBoard[6][6] = bPawn7; chessBoard[6][7] = bPawn8;
-        chessBoard[7][0] = bRook1; chessBoard[7][1] = bKnight1; chessBoard[7][2] = bBishop1; chessBoard[7][3] = bQueen; chessBoard[7][4] = bKing; chessBoard[7][5] = bBishop2; chessBoard[7][6] = bKnight2; chessBoard[7][7] = bRook1;
+        chessBoard[7][0] = bRook1; chessBoard[7][1] = bKnight1; chessBoard[7][2] = bBishop1; chessBoard[7][3] = bQueen; chessBoard[7][4] = bKing; chessBoard[7][5] = bBishop2; chessBoard[7][6] = bKnight2; chessBoard[7][7] = bRook2;
 
 
         for (MyActor a: whitePieces) {
