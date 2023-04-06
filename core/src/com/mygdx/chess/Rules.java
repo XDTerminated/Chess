@@ -1,5 +1,4 @@
 package com.mygdx.chess;
-import java.util.*;
 
 public class Rules {
 
@@ -50,7 +49,7 @@ public class Rules {
         else if (piece.getName().equals("Knight")) {
             if (xChange == 0 || yChange == 0) {
                 return false;
-            } else if (Math.abs((yChange/xChange)) == 2 || Math.abs((double) yChange/ (double) xChange) == 0.5) {
+            } else if ((Math.abs((yChange/xChange)) == 2 || Math.abs((double) yChange/ (double) xChange) == 0.5) && xChange <= 200 && yChange <= 200 && xChange >= -200 && yChange >= -200) {
                 return true;
             }
 
@@ -68,7 +67,7 @@ public class Rules {
         // Rooks
         else if (piece.getName().equals("Rook")) {
             if (xChange != 0) {
-                if (yChange/xChange == 0) {
+                if (yChange == 0) {
                     return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
                 }
             } else if (xChange == 0) {
@@ -81,7 +80,7 @@ public class Rules {
         // Queens
         else if (piece.getName().equals("Queen")) {
             if (xChange != 0) {
-                if (yChange/xChange == 0) {
+                if (yChange == 0) {
                     return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
                 }
             } else if (xChange == 0) {
@@ -93,6 +92,7 @@ public class Rules {
         }
 
         else if (piece.getName().equals("King")) {
+            // Pass
 
         }
 
@@ -158,6 +158,15 @@ public class Rules {
             }
         }
 
+        return false;
+    }
+
+    public static boolean kingInCheck(MyActor[][] position, String turn) {
+        if (turn.equals("White")) {
+
+        } else if (turn.equals("Black")) {
+
+        }
         return false;
     }
 }
