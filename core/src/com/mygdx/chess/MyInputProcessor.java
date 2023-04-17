@@ -4,6 +4,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 import java.util.*;
 
 public class MyInputProcessor implements InputProcessor {
@@ -55,7 +57,7 @@ public class MyInputProcessor implements InputProcessor {
         if (ChessBoard.getTurn().equals("White")) {
             pieces = whitePieces;
             piecesOpposite = blackPieces;
-        } else {
+        } else if (ChessBoard.getTurn().equals("Black")) {
             pieces = blackPieces;
             piecesOpposite = whitePieces;
         }
@@ -137,8 +139,50 @@ public class MyInputProcessor implements InputProcessor {
 
             chessBoard[(initialY/100)][(initialX/100)] = null;
             chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
+
+            touched.setPosition("" + (char) (touched.getXPOS()/100) + 97 + (char) (touched.getYPOS()/100) + 49);
+
+            // Pawn Promotions -> Queen
+            if (Rules.promotion) {
+                for (int i = 0; i < whitePieces.size(); i++) {
+                    if (whitePieces.get(i) == chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)]) {
+                        whitePieces.remove(i);
+                    }
+                }
+
+                for (int i = 0; i < blackPieces.size(); i++) {
+                    if (blackPieces.get(i) == chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)]) {
+                        blackPieces.remove(i);
+                    }
+                }
+                chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)].remove();
+                if (Rules.promotedColor.equals("White")) {
+                    MyActor wQueen = new Queen("wQueen.png", touched.getXPOS(), touched.getYPOS(), "W", "");
+                    wQueen.setPosition("" + (char) ((touched.getXPOS()/100) + 97) +  (char) ((touched.getYPOS()/100) + 49));
+                    wQueen.setBounds(0, 0, wQueen.texture().getWidth(), wQueen.texture().getHeight());
+                    wQueen.setTouchable(Touchable.enabled);
+                    chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = wQueen;
+                    stage.addActor(wQueen);
+                    whitePieces.add(wQueen);
+                } else {
+                    MyActor bQueen = new Queen("bQueen.png", touched.getXPOS(), touched.getYPOS(), "B", "" + (char) ((touched.getXPOS()/100) + 97) + (char) (touched.getYPOS()/100) + 49);
+                    bQueen.setPosition("" + (char) ((touched.getXPOS()/100) + 97) +  (char) ((touched.getYPOS()/100) + 49));
+
+                    chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = bQueen;
+                    bQueen.setBounds(0, 0, bQueen.texture().getWidth(), bQueen.texture().getHeight());
+                    bQueen.setTouchable(Touchable.enabled);
+                    stage.addActor(bQueen);
+                    blackPieces.add(bQueen);
+                }
+
+                Rules.promotion = false;
+            }
+
         }
 
+        for (int i = 0; i < whitePieces.size(); i++) {
+            System.out.println(whitePieces.get(i).getName());
+        }
         for (MyActor[] a : chessBoard) {
             for (MyActor b: a) {
                 if (b!= null) {
