@@ -8,9 +8,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class ChessBoard {
 
     // Variables
-    private static MyActor[] whitePieces = new MyActor[16];
-    private static MyActor[] blackPieces = new MyActor[16];
-    private static MyActor[][] chessBoard = new MyActor[8][8];
+    private static final MyActor[] whitePieces = new MyActor[16];
+    private static final MyActor[] blackPieces = new MyActor[16];
+    private static final MyActor[][] chessBoard = new MyActor[8][8];
     private static String turn = "White";
 
 
