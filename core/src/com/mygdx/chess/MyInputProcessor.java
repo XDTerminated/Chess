@@ -167,7 +167,6 @@ public class MyInputProcessor implements InputProcessor {
                 } else {
                     MyActor bQueen = new Queen("bQueen.png", touched.getXPOS(), touched.getYPOS(), "B", "" + (char) ((touched.getXPOS()/100) + 97) + (char) (touched.getYPOS()/100) + 49);
                     bQueen.setPosition("" + (char) ((touched.getXPOS()/100) + 97) +  (char) ((touched.getYPOS()/100) + 49));
-
                     chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = bQueen;
                     bQueen.setBounds(0, 0, bQueen.texture().getWidth(), bQueen.texture().getHeight());
                     bQueen.setTouchable(Touchable.enabled);
