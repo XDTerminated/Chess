@@ -13,16 +13,14 @@ public class MyInputProcessor implements InputProcessor {
     // Creates variables
     private ArrayList<MyActor> pieces; // Stores white when its whites turn and black when its blacks turn.
     private ArrayList<MyActor> piecesOpposite; // Stores black when its whites turn and white when its black turns.
-    private ArrayList<MyActor> whitePieces;
-    private ArrayList<MyActor> blackPieces;
-    private MyActor[][] chessBoard; // Computers internal memory of the chessboard
+    private final ArrayList<MyActor> whitePieces;
+    private final ArrayList<MyActor> blackPieces;
+    private final MyActor[][] chessBoard; // Computers internal memory of the chessboard
     private MyActor touched = null; // ...
     private boolean isDragging = false;
     final private Stage stage;
-    private int touchedIndexX;
-    private int touchedIndexY;
-    private Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
-    private Sound capture = Gdx.audio.newSound(Gdx.files.internal("capture.mp3"));
+    private final Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
+    private final Sound capture = Gdx.audio.newSound(Gdx.files.internal("capture.mp3"));
 
 
     // Constructor
@@ -69,17 +67,10 @@ public class MyInputProcessor implements InputProcessor {
                 touched = a;
                 touched.toFront();
 
-                if (!isDragging) {
-                    touchedIndexX = (int) (touched.getYPOS() / 100);
-                    touchedIndexY = (int) (touched.getXPOS() / 100);
-                }
-
                 isDragging = true;
 
                 return true;
 
-            } else {
-                isDragging = false;
             }
 
         }
@@ -102,9 +93,9 @@ public class MyInputProcessor implements InputProcessor {
         touched.setXPos(Math.round((int) (Math.round(touched.getXPOS() / 100.0) * 100)));
         touched.setYPos(Math.round((int) (Math.round(touched.getYPOS() / 100.0) * 100)));
 
-        for (int i = 0; i < pieces.size(); i++) {
-            if (touched.getXPOS() == pieces.get(i).getXPOS() && touched.getYPOS() == pieces.get(i).getYPOS()) {
-                if (touched != pieces.get(i)) {
+        for (MyActor piece : pieces) {
+            if (touched.getXPOS() == piece.getXPOS() && touched.getYPOS() == piece.getYPOS()) {
+                if (touched != piece) {
                     touched.setXPos(initialX);
                     touched.setYPos(initialY);
                     touched = null;
@@ -147,12 +138,14 @@ public class MyInputProcessor implements InputProcessor {
                 for (int i = 0; i < whitePieces.size(); i++) {
                     if (whitePieces.get(i) == chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)]) {
                         whitePieces.remove(i);
+                        break;
                     }
                 }
 
                 for (int i = 0; i < blackPieces.size(); i++) {
                     if (blackPieces.get(i) == chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)]) {
                         blackPieces.remove(i);
+                        break;
                     }
                 }
                 chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)].remove();
@@ -177,10 +170,12 @@ public class MyInputProcessor implements InputProcessor {
                 Rules.promotion = false;
             }
 
+            // En Passant
+
         }
 
-        for (int i = 0; i < whitePieces.size(); i++) {
-            System.out.println(whitePieces.get(i).getName());
+        for (MyActor whitePiece : whitePieces) {
+            System.out.println(whitePiece.getName());
         }
         for (MyActor[] a : chessBoard) {
             for (MyActor b: a) {
@@ -222,7 +217,7 @@ public class MyInputProcessor implements InputProcessor {
         }
 
 
-        String position = "" + (char)((int) touched.getXPOS()/100 + 97) + (char)((int) touched.getYPOS()/100 + 49);
+        String position = "" + (char)(touched.getXPOS() /100 + 97) + (char)(touched.getYPOS() /100 + 49);
         touched.setPosition(position);
 
         touched = null;

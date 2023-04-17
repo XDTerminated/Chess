@@ -74,9 +74,7 @@ public class Rules {
         else if (piece.getName().equals("Knight")) {
             if (xChange == 0 || yChange == 0) {
                 return false;
-            } else if ((Math.abs((yChange/xChange)) == 2 || Math.abs((double) yChange/ (double) xChange) == 0.5) && xChange <= 200 && yChange <= 200 && xChange >= -200 && yChange >= -200) {
-                return true;
-            }
+            } else return (Math.abs((yChange / xChange)) == 2 || Math.abs((double) yChange / (double) xChange) == 0.5) && xChange <= 200 && yChange <= 200 && xChange >= -200 && yChange >= -200;
 
         }
 
@@ -95,7 +93,7 @@ public class Rules {
                 if (yChange == 0) {
                     return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
                 }
-            } else if (xChange == 0) {
+            } else {
                 return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
             }
 
@@ -108,7 +106,7 @@ public class Rules {
                 if (yChange == 0) {
                     return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
                 }
-            } else if (xChange == 0) {
+            } else {
                 return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
             }
             if (Math.abs(yChange/xChange) == 1) {
@@ -116,9 +114,8 @@ public class Rules {
             }
         }
 
-        else if (piece.getName().equals("King")) {
-            // Pass
-
+        else {
+            piece.getName();// Pass
         }
 
 
@@ -129,27 +126,19 @@ public class Rules {
         if (xChange > 0 && yChange > 0) {
             if (position[x - 1][y - 1] == null) {
                 return traceBackDiagonal(position, piece, x - 1, y - 1, xChange, yChange);
-            } else if (position[x - 1][y - 1] == piece) {
-                return true;
-            }
+            } else return position[x - 1][y - 1] == piece;
         } else if (xChange > 0 && yChange < 0) {
             if (position[x + 1][y - 1] == null) {
                 return traceBackDiagonal(position, piece, x + 1, y - 1, xChange, yChange);
-            } else if (position[x + 1][y - 1] == piece) {
-                return true;
-            }
+            } else return position[x + 1][y - 1] == piece;
         } else if (xChange < 0 && yChange > 0) {
             if (position[x - 1][y + 1] == null) {
                 return traceBackDiagonal(position, piece, x - 1, y + 1, xChange, yChange);
-            } else if (position[x - 1][y + 1] == piece) {
-                return true;
-            }
+            } else return position[x - 1][y + 1] == piece;
         } else if (xChange < 0 && yChange < 0) {
             if (position[x + 1][y + 1] == null) {
                 return traceBackDiagonal(position, piece, x + 1, y + 1, xChange, yChange);
-            } else if (position[x + 1][y + 1] == piece) {
-                return true;
-            }
+            } else return position[x + 1][y + 1] == piece;
         }
 
         return false;
@@ -160,38 +149,22 @@ public class Rules {
         if (xChange > 0) {
             if (position[x][y - 1] == null) {
                 return traceBackVH(position, piece, x, y - 1, xChange, yChange);
-            } else if (position[x][y - 1] == piece) {
-                return true;
-            }
+            } else return position[x][y - 1] == piece;
         } else if (xChange < 0) {
             if (position[x][y + 1] == null) {
                 return traceBackVH(position, piece, x, y + 1, xChange, yChange);
-            } else if (position[x][y + 1] == piece) {
-                return true;
-            }
+            } else return position[x][y + 1] == piece;
         } else if (yChange > 0) {
             if (position[x - 1][y] == null) {
                 return traceBackVH(position, piece, x - 1, y, xChange, yChange);
-            } else if (position[x - 1][y] == piece) {
-                return true;
-            }
+            } else return position[x - 1][y] == piece;
         } else if (yChange < 0) {
             if (position[x + 1][y] == null) {
                 return traceBackVH(position, piece, x + 1, y, xChange, yChange);
-            } else if (position[x + 1][y] == piece) {
-                return true;
-            }
+            } else return position[x + 1][y] == piece;
         }
 
         return false;
     }
 
-    public static boolean findChecks(MyActor[][] position, String turn) {
-        if (turn.equals("White")) {
-
-        } else if (turn.equals("Black")) {
-
-        }
-        return false;
-    }
 }

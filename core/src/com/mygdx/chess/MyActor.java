@@ -86,7 +86,7 @@ public class MyActor extends Actor {
         this.hasMoved = true;
     }
 
-    // Other methods - Overriden methods in other classes
+    // Other methods - Overridden methods in other classes
     public void setEnPassant(boolean enPassant) {
 
     }
