@@ -41,7 +41,9 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render () {
 
+
 		ChessBoard.createChessBoard();
+
 
 		stage.act();
 		stage.draw();

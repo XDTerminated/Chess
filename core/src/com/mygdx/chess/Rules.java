@@ -3,6 +3,11 @@ package com.mygdx.chess;
 public class Rules {
 
 
+    public static String promotedColor;
+    public static boolean promotion = false;
+
+
+
     public static boolean isLegal(MyActor[][] position, MyActor piece, int xChange, int yChange) {
         // Pawns
         if (piece.getName().equals("Pawn")) {
@@ -18,11 +23,20 @@ public class Rules {
                             return true;
                         }
                     }
-                } else if (piece.getHasMoved()) {
+                } else {
                     if (xChange == 0) {
                         if (piece.color().equals("W") && yChange == 100) {
+                            if (piece.getYPOS() == 700) {
+                                promotedColor = "White";
+                                promotion = true;
+                            }
                             return true;
                         } else if (piece.color().equals("B") && yChange == -100) {
+                            if (piece.getYPOS() == 0) {
+                                promotedColor = "Black";
+                                promotion = true;
+
+                            }
                             return true;
                         }
                     }
@@ -32,17 +46,28 @@ public class Rules {
             // Capturing other pieces with pawns
             if (piece.color().equals("W") && yChange == 100 && Math.abs(xChange) == 100) {
                 if ((position[((piece.getYPOS())/100)][((piece.getXPOS())/100)] != null)) {
+                    if (piece.getYPOS() == 700) {
+                        promotedColor = "White";
+                        promotion = true;
+
+
+                    }
                     return true;
                 }
             } else if (piece.color().equals("B") && yChange == -100 && Math.abs(xChange) == 100) {
                 if ((position[((piece.getYPOS())/100)][((piece.getXPOS())/100)] != null)) {
+                    if (piece.getYPOS() == 0) {
+                        promotedColor = "Black";
+                        promotion = true;
+
+
+                    }
                     return true;
                 }
             }
 
             // En Passant
 
-            // Promotions
         }
 
         // Knights
@@ -161,7 +186,7 @@ public class Rules {
         return false;
     }
 
-    public static boolean kingInCheck(MyActor[][] position, String turn) {
+    public static boolean findChecks(MyActor[][] position, String turn) {
         if (turn.equals("White")) {
 
         } else if (turn.equals("Black")) {
