@@ -128,6 +128,8 @@ public class MyInputProcessor implements InputProcessor {
             return false;
         } else {
 
+            System.out.println(touched.getEnPassant());
+
             chessBoard[(initialY/100)][(initialX/100)] = null;
             chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
 
@@ -171,25 +173,29 @@ public class MyInputProcessor implements InputProcessor {
             }
 
             // En Passant
-
-        }
-
-        for (MyActor whitePiece : whitePieces) {
-            System.out.println(whitePiece.getName());
-        }
-        for (MyActor[] a : chessBoard) {
-            for (MyActor b: a) {
-                if (b!= null) {
-                    System.out.print(b.getName() + " ");
-                } else {
-                    System.out.print(" ");
+            if (Rules.enPassant) {
+                for (int i = 0; i < whitePieces.size(); i++) {
+                    if (chessBoard[Rules.xPiece/100][Rules.yPiece/100] == whitePieces.get(i)) {
+                        whitePieces.remove(i);
+                        break;
+                    }
                 }
 
+                for (int i = 0; i < blackPieces.size(); i++) {
+                    if (chessBoard[Rules.xPiece/100][Rules.yPiece/100] == blackPieces.get(i)) {
+                        blackPieces.remove(i);
+                        break;
+                    }
+                }
+
+                chessBoard[Rules.xPiece/100][Rules.yPiece/100].remove();
+                chessBoard[Rules.xPiece/100][Rules.yPiece/100] = null;
+                Rules.enPassant = false;
+                capturePlayed = true;
+                capture.play();
             }
 
-            System.out.println();
         }
-
 
         for (int i = 0; i < piecesOpposite.size(); i++) {
             if (touched.getXPOS() == piecesOpposite.get(i).getXPOS() && touched.getYPOS() == piecesOpposite.get(i).getYPOS()) {
@@ -221,6 +227,27 @@ public class MyInputProcessor implements InputProcessor {
         touched.setPosition(position);
 
         touched = null;
+        // Go through all the pawns and change the en passant if the en passant is 0;
+        for (MyActor a: whitePieces) {
+            if (a.getEnPassant()) {
+                if (a.getCounter() == 0) {
+                    a.increaseCounter();
+                } else if (a.getCounter() == 1) {
+                    a.setEnPassant(false);
+                }
+            }
+        }
+
+        for (MyActor a: blackPieces) {
+            if (a.getEnPassant()) {
+                if (a.getCounter() == 0) {
+                    a.increaseCounter();
+                } else if (a.getCounter() == 1) {
+                    a.setEnPassant(false);
+                }
+            }
+        }
+
         return true;
     }
 

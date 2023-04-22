@@ -94,4 +94,12 @@ public class MyActor extends Actor {
     public boolean getEnPassant() {
         return false;
     }
+
+    public void increaseCounter() {
+
+    }
+
+    public int getCounter() {
+        return -1;
+    }
 }

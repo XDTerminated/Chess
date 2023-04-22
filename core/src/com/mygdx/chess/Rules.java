@@ -5,6 +5,9 @@ public class Rules {
 
     public static String promotedColor;
     public static boolean promotion = false;
+    public static boolean enPassant = false;
+    public static int xPiece;
+    public static int yPiece;
 
 
 
@@ -16,9 +19,68 @@ public class Rules {
                 if (!piece.getHasMoved()) {
                     if (xChange == 0) {
                         if (piece.color().equals("W") && yChange <= 200 && yChange > 0) {
+                            if (yChange != 200) {
+                                piece.setHasMoved();
+                                return true;
+                            }
+                            if (piece.getXPOS() == 0) {
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].color().equals("B") && position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+                            } else if (piece.getXPOS() == 700) {
+
+                                if (position[piece.getYPOS()/100][6] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].color().equals("B") && position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+                            } else {
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].color().equals("B") && position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].color().equals("B") && position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+                            }
                             piece.setHasMoved();
                             return true;
                         } else if (piece.color().equals("B") && yChange >= -200 && yChange < 0) {
+                            if (yChange != -200) {
+                                piece.setHasMoved();
+                                return true;
+                            }
+                            if (piece.getXPOS() == 0) {
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].color().equals("W") && position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+                            } else if (piece.getXPOS() == 700) {
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].color().equals("W") && position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+                            } else {
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].color().equals("W") && position[piece.getYPOS()/100][piece.getXPOS()/100 - 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+
+                                if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1] != null) {
+                                    if (position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].color().equals("W") && position[piece.getYPOS()/100][piece.getXPOS()/100 + 1].getName().equals("Pawn")) {
+                                        piece.setEnPassant(true);
+                                    }
+                                }
+                            }
                             piece.setHasMoved();
                             return true;
                         }
@@ -59,14 +121,35 @@ public class Rules {
                     if (piece.getYPOS() == 0) {
                         promotedColor = "Black";
                         promotion = true;
-
-
                     }
                     return true;
                 }
             }
 
             // En Passant
+            if (piece.color().equals("W")) {
+                if (Math.abs(xChange) == 100 && yChange == 100) {
+                    if (position[piece.getYPOS()/100 - 1][piece.getXPOS()/100] != null) {
+                        if (position[piece.getYPOS()/100 - 1][piece.getXPOS()/100].getName().equals("Pawn") && position[piece.getYPOS()/100 - 1][piece.getXPOS()/100].color().equals("B") && position[piece.getYPOS()/100 - 1][piece.getXPOS()/100].getEnPassant()) {
+                            enPassant = true;
+                            xPiece = piece.getYPOS() - 100;
+                            yPiece = piece.getXPOS();
+                            return true;
+                        }
+                    }
+                }
+            } else {
+                if (Math.abs(xChange) == 100 && yChange == -100) {
+                    if (position[piece.getYPOS()/100 + 1][piece.getXPOS()/100] != null) {
+                        if (position[piece.getYPOS()/100 + 1][piece.getXPOS()/100].getName().equals("Pawn") && position[piece.getYPOS()/100 + 1][piece.getXPOS()/100].color().equals("W") && position[piece.getYPOS()/100 + 1][piece.getXPOS()/100].getEnPassant()) {
+                            enPassant = true;
+                            xPiece = piece.getYPOS() + 100;
+                            yPiece = piece.getXPOS();
+                            return true;
+                        }
+                    }
+                }
+            }
 
         }
 
@@ -114,8 +197,8 @@ public class Rules {
             }
         }
 
-        else {
-            piece.getName();// Pass
+        else if (piece.getName().equals("King")) {
+            // TODO: Need to finish king movement.
         }
 
 
@@ -163,6 +246,13 @@ public class Rules {
                 return traceBackVH(position, piece, x + 1, y, xChange, yChange);
             } else return position[x + 1][y] == piece;
         }
+
+        return false;
+    }
+
+    public static boolean kingInCheck() {
+        // TODO: Need to finish the function that returns true if the king will be in check after the move is made
+        // otherwise it will return false.
 
         return false;
     }
