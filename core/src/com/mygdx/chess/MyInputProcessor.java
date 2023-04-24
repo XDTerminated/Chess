@@ -195,6 +195,8 @@ public class MyInputProcessor implements InputProcessor {
                 capture.play();
             }
 
+            touched.setHasMoved();
+
         }
 
         for (int i = 0; i < piecesOpposite.size(); i++) {

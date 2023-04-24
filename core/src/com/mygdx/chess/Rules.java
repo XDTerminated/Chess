@@ -8,6 +8,7 @@ public class Rules {
     public static boolean enPassant = false;
     public static int xPiece;
     public static int yPiece;
+    public static boolean castle;
 
 
 
@@ -198,7 +199,19 @@ public class Rules {
         }
 
         else if (piece.getName().equals("King")) {
-            // TODO: Need to finish king movement.
+            // Simple Movement
+            if (!(0 <= Math.abs(xChange) && Math.abs(xChange) <= 100 && 0 <= Math.abs(yChange) && Math.abs(yChange) <= 100)) {
+                return false;
+            }
+
+            if ((Math.abs(yChange) == 100 && Math.abs(xChange) == 0) || (Math.abs(xChange) == 100 && Math.abs(yChange) == 0)) {
+                return traceBackVH(position, piece, (piece.getYPOS()/100), piece.getXPOS()/100, xChange, yChange);
+            }
+
+            if (Math.abs(yChange) == 100 && Math.abs(xChange) == 100) {
+                return traceBackDiagonal(position, piece, (piece.getYPOS() / 100), piece.getXPOS() / 100, xChange, yChange);
+            }
+
         }
 
 
@@ -250,11 +263,13 @@ public class Rules {
         return false;
     }
 
-    public static boolean kingInCheck() {
-        // TODO: Need to finish the function that returns true if the king will be in check after the move is made
-        // otherwise it will return false.
-
+    public static boolean kingInCheck(MyActor[][] position, int x, int y) {
+        /* TODO: Need to finish the function that returns true if the king will be in check after the move is made
+            otherwise it will return false.
+         */
         return false;
     }
+
+
 
 }
