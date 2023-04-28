@@ -21,6 +21,7 @@ public class MyInputProcessor implements InputProcessor {
     final private Stage stage;
     private final Sound move = Gdx.audio.newSound(Gdx.files.internal("move.mp3"));
     private final Sound capture = Gdx.audio.newSound(Gdx.files.internal("capture.mp3"));
+    MyActor[][] chessBoardCopy = new MyActor[8][8];
 
 
     // Constructor
@@ -128,10 +129,55 @@ public class MyInputProcessor implements InputProcessor {
             return false;
         } else {
 
-            System.out.println(touched.getEnPassant());
+            for (int i = 0; i < chessBoard.length; i++) {
+                System.arraycopy(chessBoard[i], 0, chessBoardCopy[i], 0, chessBoard[i].length);
+            }
+            chessBoardCopy[(initialY/100)][(initialX/100)] = null;
+            chessBoardCopy[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
+
+            System.out.println(chessBoard == chessBoardCopy);
+
+
+            int xKing = -1;
+            int yKing = -1;
+
+            if (ChessBoard.getTurn().equals("White")) {
+                for (MyActor a: whitePieces) {
+                    if (a.getName().equals("King")) {
+                        xKing = a.getXPOS()/100;
+                        yKing = a.getYPOS()/100;
+
+                        break;
+                    }
+                }
+            } else {
+                for (MyActor a: blackPieces) {
+                    if (a.getName().equals("King")) {
+                        xKing = a.getXPOS()/100;
+                        yKing = a.getYPOS()/100;
+
+                        break;
+                    }
+                }
+            }
+
+            System.out.println(xKing);
+            System.out.println(yKing);
+
+            System.out.println();
+
+            if (Rules.kingInCheck(chessBoardCopy, xKing, yKing, touched)) {
+                touched.setXPos(initialX);
+                touched.setYPos(initialY);
+                touched = null;
+                isDragging = false;
+                return false;
+            }
 
             chessBoard[(initialY/100)][(initialX/100)] = null;
             chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
+
+
 
             touched.setPosition("" + (char) (touched.getXPOS()/100) + 97 + (char) (touched.getYPOS()/100) + 49);
 

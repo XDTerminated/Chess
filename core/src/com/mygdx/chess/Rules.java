@@ -212,8 +212,11 @@ public class Rules {
                 return traceBackDiagonal(position, piece, (piece.getYPOS() / 100), piece.getXPOS() / 100, xChange, yChange);
             }
 
-        }
+            // Castling
+            if (Math.abs(yChange) == 0 && Math.abs(xChange) >= 200) {
 
+            }
+        }
 
         return false;
     }
@@ -263,10 +266,235 @@ public class Rules {
         return false;
     }
 
-    public static boolean kingInCheck(MyActor[][] position, int x, int y) {
-        /* TODO: Need to finish the function that returns true if the king will be in check after the move is made
-            otherwise it will return false.
-         */
+    public static boolean kingInCheck(MyActor[][] position, int x, int y, MyActor piece) {
+        // Check Pawns
+        if (position[x][y] == null) {
+            x = piece.getXPOS()/100;
+            y = piece.getYPOS()/100;
+        }
+        if (position[y][x].color().equals("B")) {
+            if ((y - 1) >= 0 && (x + 1) <= 7) {
+                if (position[y - 1][x + 1] != null) {
+                    if (!position[y - 1][x + 1].color().equals(position[y][x].color()) && position[y - 1][x + 1].getName().equals("Pawn")) {
+                        return true;
+                    }
+                }
+            }
+
+            if ((y - 1) >= 0 && (x - 1) >= 0) {
+                if (position[y - 1][x - 1] != null) {
+                    if (!position[y - 1][x - 1].color().equals(position[y][x].color()) && position[y - 1][x - 1].getName().equals("Pawn")) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            if ((y + 1) <= 7 && (x + 1) <= 7) {
+                if (position[y + 1][x + 1] != null) {
+                    if (!position[y + 1][x + 1].color().equals(position[y][x].color()) && position[y + 1][x + 1].getName().equals("Pawn")) {
+                        return true;
+                    }
+                }
+            }
+
+            if ((y + 1) <= 7 && (x - 1) >= 0) {
+                if (position[y + 1][x - 1] != null) {
+                    if (!position[y + 1][x - 1].color().equals(position[y][x].color()) && position[y + 1][x - 1].getName().equals("Pawn")) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // Check Knights
+        if ((y + 1) <= 7 && (x + 2) <= 7) {
+            if (position[y + 1][x + 2] != null) {
+                if (!position[y + 1][x + 2].color().equals(position[y][x].color()) && position[y + 1][x + 2].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y + 1)<= 7 && (x - 2) >= 0) {
+            if (position[y + 1][x - 2] != null) {
+                if (!position[y + 1][x - 2].color().equals(position[y][x].color()) && position[y + 1][x - 2].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y + 2) <= 7 && (x + 1) <= 7) {
+            if (position[y + 2][x + 1] != null) {
+                if (!position[y + 2][x + 1].color().equals(position[y][x].color()) && position[y + 2][x + 1].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y + 2) <= 7 && (x - 1) >= 0) {
+            if (position[y + 2][x - 1] != null) {
+                if (!position[y + 2][x - 1].color().equals(position[y][x].color()) && position[y + 2][x - 1].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y - 1) >= 0 && (x + 2) <= 7) {
+            if (position[y - 1][x + 2] != null) {
+                if (!position[y - 1][x + 2].color().equals(position[y][x].color()) && position[y - 1][x + 2].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y - 1) >= 0 && (x - 2) >= 0) {
+            if (position[y - 1][x - 2] != null) {
+                if (!position[y - 1][x - 2].color().equals(position[y][x].color()) && position[y - 1][x - 2].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y - 2) >= 0 && (x + 1) <= 7) {
+            if (position[y - 2][x + 1] != null) {
+                if (!position[y - 2][x + 1].color().equals(position[y][x].color()) && position[y - 2][x + 1].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+        if ((y - 2) >= 0 && (x - 1) >= 0) {
+            if (position[y - 2][x - 1] != null) {
+                if (!position[y - 2][x - 1].color().equals(position[y][x].color()) && position[y - 2][x - 1].getName().equals("Knight")) {
+                    return true;
+                }
+            }
+        }
+
+        // Check Vertical
+        for (int i = y + 1; i <= 7; i++) {
+            if (position[i][x] != null) {
+                if (!position[i][x].color().equals(position[y][x].color())) {
+                    if (position[i][x].getName().equals("Rook") || position[i][x].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        for (int i = y - 1; i >= 0; i--) {
+            if (position[i][x] != null) {
+                if (!position[i][x].color().equals(position[y][x].color())) {
+                    if (position[i][x].getName().equals("Rook") || position[i][x].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Check Horizontal
+        for (int i = x + 1; i <= 7; i++) {
+            if (position[y][i] != null){
+                if (!position[y][i].color().equals(position[y][x].color())) {
+                    if (position[y][i].getName().equals("Rook") || position[y][i].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+
+        for (int i = x - 1; i >= 0; i--) {
+            if (position[y][i] != null) {
+                if (!position[y][i].color().equals(position[y][x].color())) {
+                    if (position[y][i].getName().equals("Rook") || position[y][i].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        // Check Diagonals
+        int x1 = x + 1;
+        int y1 = y + 1;
+        int x2 = x - 1;
+        int y2 = y - 1;
+        int x3 = x - 1;
+        int y3 = y + 1;
+        int x4 = x + 1;
+        int y4 = y - 1;
+
+        while (x1 <= 7 && y1 <= 7) {
+            if (position[y1][x1] != null) {
+                if (!position[y1][x1].color().equals(position[y][x].color())) {
+                    if (position[y1][x1].getName().equals("Bishop") || position[y1][x1].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            y1++;
+            x1++;
+        }
+
+        while (x2 >= 0 && y2 >= 0) {
+            if (position[y2][x2] != null) {
+                if (!position[y2][x2].color().equals(position[y][x].color())) {
+                    if (position[y2][x2].getName().equals("Bishop") || position[y2][x2].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            y2--;
+            x2--;
+        }
+
+        while (x3 >= 0 && y3 <= 7) {
+            if (position[y3][x3] != null) {
+                if (!position[y3][x3].color().equals(position[y][x].color())) {
+                    if (position[y3][x3].getName().equals("Bishop") || position[y3][x3].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            y3++;
+            x3--;
+        }
+
+        while (x4 <= 7 && y4 >= 0) {
+            if (position[y4][x4] != null) {
+                if (!position[y4][x4].color().equals(position[y][x].color())) {
+                    if (position[y4][x4].getName().equals("Bishop") || position[y4][x4].getName().equals("Queen")) {
+                        return true;
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+            y4--;
+            x4++;
+        }
+
         return false;
     }
 
