@@ -129,13 +129,41 @@ public class MyInputProcessor implements InputProcessor {
             return false;
         } else {
 
+            if (Rules.castle) {
+                if (touched.color().equals("W")) {
+                    if ((touched.getXPOS() - initialX) >= 200) {
+                        chessBoard[0][5] = chessBoard[0][7];
+                        chessBoard[0][7] = null;
+                        chessBoard[0][5].setXPos(500);
+                        chessBoard[0][5].setYPos(0);
+                    } else if ((touched.getXPOS() - initialX) <= -200) {
+                        chessBoard[0][3] = chessBoard[0][0];
+                        chessBoard[0][0] = null;
+                        chessBoard[0][3].setXPos(300);
+                        chessBoard[0][3].setYPos(0);
+                    }
+                } else {
+                    if ((touched.getXPOS() - initialX >= 200)) {
+                        chessBoard[7][5] = chessBoard[7][7];
+                        chessBoard[7][7] = null;
+                        chessBoard[7][5].setXPos(500);
+                        chessBoard[7][5].setYPos(700);
+                    } else if ((touched.getXPOS() - initialX) <= -200) {
+                        chessBoard[7][3] = chessBoard[7][0];
+                        chessBoard[7][0] = null;
+                        chessBoard[7][3].setXPos(300);
+                        chessBoard[7][3].setYPos(700);
+                    }
+                }
+            }
+
+            Rules.castle = false;
+
             for (int i = 0; i < chessBoard.length; i++) {
                 System.arraycopy(chessBoard[i], 0, chessBoardCopy[i], 0, chessBoard[i].length);
             }
             chessBoardCopy[(initialY/100)][(initialX/100)] = null;
             chessBoardCopy[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = touched;
-
-            System.out.println(chessBoard == chessBoardCopy);
 
 
             int xKing = -1;
@@ -161,11 +189,6 @@ public class MyInputProcessor implements InputProcessor {
                 }
             }
 
-            System.out.println(xKing);
-            System.out.println(yKing);
-
-            System.out.println();
-
             if (Rules.kingInCheck(chessBoardCopy, xKing, yKing, touched)) {
                 touched.setXPos(initialX);
                 touched.setYPos(initialY);
@@ -179,7 +202,7 @@ public class MyInputProcessor implements InputProcessor {
 
 
 
-            touched.setPosition("" + (char) (touched.getXPOS()/100) + 97 + (char) (touched.getYPOS()/100) + 49);
+            touched.setPosition(String.valueOf((char) (touched.getXPOS()/100)) + 97 + (char) (touched.getYPOS()/100) + 49);
 
             // Pawn Promotions -> Queen
             if (Rules.promotion) {
@@ -199,15 +222,15 @@ public class MyInputProcessor implements InputProcessor {
                 chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)].remove();
                 if (Rules.promotedColor.equals("White")) {
                     MyActor wQueen = new Queen("wQueen.png", touched.getXPOS(), touched.getYPOS(), "W", "");
-                    wQueen.setPosition("" + (char) ((touched.getXPOS()/100) + 97) +  (char) ((touched.getYPOS()/100) + 49));
+                    wQueen.setPosition(String.valueOf((char) ((touched.getXPOS()/100) + 97)) +  (char) ((touched.getYPOS()/100) + 49));
                     wQueen.setBounds(0, 0, wQueen.texture().getWidth(), wQueen.texture().getHeight());
                     wQueen.setTouchable(Touchable.enabled);
                     chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = wQueen;
                     stage.addActor(wQueen);
                     whitePieces.add(wQueen);
                 } else {
-                    MyActor bQueen = new Queen("bQueen.png", touched.getXPOS(), touched.getYPOS(), "B", "" + (char) ((touched.getXPOS()/100) + 97) + (char) (touched.getYPOS()/100) + 49);
-                    bQueen.setPosition("" + (char) ((touched.getXPOS()/100) + 97) +  (char) ((touched.getYPOS()/100) + 49));
+                    MyActor bQueen = new Queen("bQueen.png", touched.getXPOS(), touched.getYPOS(), "B", String.valueOf((char) ((touched.getXPOS()/100) + 97)) + (char) (touched.getYPOS()/100) + 49);
+                    bQueen.setPosition(String.valueOf((char) ((touched.getXPOS()/100) + 97)) +  (char) ((touched.getYPOS()/100) + 49));
                     chessBoard[(touched.getYPOS()/100)][((touched.getXPOS())/100)] = bQueen;
                     bQueen.setBounds(0, 0, bQueen.texture().getWidth(), bQueen.texture().getHeight());
                     bQueen.setTouchable(Touchable.enabled);
@@ -271,7 +294,7 @@ public class MyInputProcessor implements InputProcessor {
         }
 
 
-        String position = "" + (char)(touched.getXPOS() /100 + 97) + (char)(touched.getYPOS() /100 + 49);
+        String position = String.valueOf((char)(touched.getXPOS() /100 + 97)) + (char)(touched.getYPOS() /100 + 49);
         touched.setPosition(position);
 
         touched = null;

@@ -199,6 +199,152 @@ public class Rules {
         }
 
         else if (piece.getName().equals("King")) {
+            // Castling
+            if (Math.abs(yChange) == 0 && xChange >= 200) {
+                if (piece.getHasMoved() && kingInCheck(position, piece.getXPOS()/100, piece.getYPOS()/100, piece)) {
+                    return false;
+                }
+
+                if (piece.color().equals("W")) {
+                    if (position[0][7] != null) {
+                        if (!position[0][7].getName().equals("Rook") || position[0][7].getHasMoved()) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+
+                    if (position[0][5] != null) {
+                        return false;
+                    }
+                    position[0][5] =  position[0][4];
+                    position[0][4] = null;
+
+                    if (!kingInCheck(position, 5, 0, piece)) {
+                        position[0][6] =  position[0][5];
+                        position[0][5] = null;
+                        if (!kingInCheck(position, 6, 0, piece)) {
+                            castle = true;
+                            return true;
+                        }
+                        position[0][4] = position[0][6];
+                        position[0][6] = null;
+                        return false;
+                    }
+
+                    position[0][4] = position[0][5];
+                    position[0][5] = null;
+                    return false;
+
+
+                } else if (piece.color().equals("B")) {
+                    if (position[7][7] != null) {
+                        if (!position[7][7].getName().equals("Rook") || position[7][7].getHasMoved()) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+
+                    if (position[7][5] != null) {
+                        return false;
+                    }
+
+                    position[7][5] =  position[7][4];
+                    position[7][4] = null;
+
+                    if (!kingInCheck(position, 5, 7, piece)) {
+                        position[7][6] =  position[7][5];
+                        position[7][5] = null;
+                        if (!kingInCheck(position, 6, 7, piece)) {
+                            castle = true;
+                            return true;
+                        }
+                        position[7][4] = position[7][6];
+                        position[7][6] = null;
+                        return false;
+                    }
+
+                    position[7][4] = position[7][5];
+                    position[7][5] = null;
+                    return false;
+
+                }
+            } else if (Math.abs(yChange) == 0 && xChange <= -200) {
+                if (piece.getHasMoved() && kingInCheck(position, piece.getXPOS()/100, piece.getYPOS()/100, piece)) {
+                    return false;
+                }
+
+                if (piece.color().equals("W")) {
+                    if (position[0][0] != null) {
+                        if (!position[0][0].getName().equals("Rook") || position[0][0].getHasMoved()) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+
+                    if (position[0][3] != null) {
+                        return false;
+                    }
+
+                    position[0][3] =  position[0][4];
+                    position[0][4] = null;
+
+                    if (!kingInCheck(position, 3, 0, piece)) {
+                        position[0][2] =  position[0][3];
+                        position[0][3] = null;
+                        if (!kingInCheck(position, 2, 0, piece)) {
+                            piece.setXPos(200);
+                            piece.setYPos(0);
+
+                            castle = true;
+                            return true;
+                        }
+                        position[0][4] = position[0][2];
+                        position[0][2] = null;
+                        return false;
+                    }
+
+                    position[0][4] = position[0][3];
+                    position[0][3] = null;
+                    return false;
+                } else if (piece.color().equals("B")) {
+                    if (position[7][0] != null) {
+                        if (!position[7][0].getName().equals("Rook") || position[7][0].getHasMoved()) {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+
+                    if (position[7][3] != null) {
+                        return false;
+                    }
+
+                    position[7][3] =  position[7][4];
+                    position[7][4] = null;
+
+                    if (!kingInCheck(position, 3, 7, piece)) {
+                        position[7][2] =  position[7][3];
+                        position[7][3] = null;
+                        if (!kingInCheck(position, 2, 7, piece)) {
+                            piece.setXPos(200);
+                            piece.setYPos(700);
+                            castle = true;
+                            return true;
+                        }
+                        position[7][4] = position[7][2];
+                        position[7][2] = null;
+                        return false;
+                    }
+
+                    position[7][4] = position[7][3];
+                    position[7][3] = null;
+                    return false;
+                }
+            }
+
             // Simple Movement
             if (!(0 <= Math.abs(xChange) && Math.abs(xChange) <= 100 && 0 <= Math.abs(yChange) && Math.abs(yChange) <= 100)) {
                 return false;
@@ -212,10 +358,6 @@ public class Rules {
                 return traceBackDiagonal(position, piece, (piece.getYPOS() / 100), piece.getXPOS() / 100, xChange, yChange);
             }
 
-            // Castling
-            if (Math.abs(yChange) == 0 && Math.abs(xChange) >= 200) {
-
-            }
         }
 
         return false;
@@ -268,10 +410,11 @@ public class Rules {
 
     public static boolean kingInCheck(MyActor[][] position, int x, int y, MyActor piece) {
         // Check Pawns
-        if (position[x][y] == null) {
+        if (position[y][x] == null) {
             x = piece.getXPOS()/100;
             y = piece.getYPOS()/100;
         }
+
         if (position[y][x].color().equals("B")) {
             if ((y - 1) >= 0 && (x + 1) <= 7) {
                 if (position[y - 1][x + 1] != null) {
@@ -363,6 +506,9 @@ public class Rules {
                 }
             }
         }
+
+        // Check Kings
+
 
         // Check Vertical
         for (int i = y + 1; i <= 7; i++) {
@@ -497,7 +643,5 @@ public class Rules {
 
         return false;
     }
-
-
 
 }
