@@ -507,8 +507,65 @@ public class Rules {
             }
         }
 
-        // Check Kings
-
+        // King Cut Off
+        if (piece.getName().equals("King")) {
+            if ((x - 1) >= 0) {
+                if (position[y][x - 1] != null) {
+                    if (!position[y][x - 1].color().equals(position[y][x].color()) && position[y][x - 1].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((x + 1) <= 7) {
+                if (position[y][x + 1] != null) {
+                    if (!position[y][x + 1].color().equals(position[y][x].color()) && position[y][x + 1].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((y + 1) <= 7) {
+                if (position[y + 1][x] != null) {
+                    if (!position[y + 1][x].color().equals(position[y][x].color()) && position[y + 1][x].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((y - 1) >= 0) {
+                if (position[y - 1][x] != null) {
+                    if (!position[y - 1][x].color().equals(position[y][x].color()) && position[y - 1][x].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((y + 1) <= 7 && (x + 1) <= 7) {
+                if (position[y + 1][x + 1] != null) {
+                    if (!position[y + 1][x + 1].color().equals(position[y][x].color()) && position[y + 1][x + 1].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((y + 1) <= 7 && (x - 1) >= 0) {
+                if (position[y + 1][x - 1] != null) {
+                    if (!position[y + 1][x - 1].color().equals(position[y][x].color()) && position[y + 1][x - 1].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((y - 1) >= 0 && (x + 1) <= 7) {
+                if (position[y - 1][x + 1] != null) {
+                    if (!position[y - 1][x + 1].color().equals(position[y][x].color()) && position[y - 1][x + 1].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+            if ((y - 1) >= 0 && (x - 1) >= 0) {
+                if (position[y - 1][x - 1] != null) {
+                    if (!position[y - 1][x - 1].color().equals(position[y][x].color()) && position[y - 1][x - 1].getName().equals("King")) {
+                        return true;
+                    }
+                }
+            }
+        }
 
         // Check Vertical
         for (int i = y + 1; i <= 7; i++) {
