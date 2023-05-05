@@ -136,11 +136,14 @@ public class MyInputProcessor implements InputProcessor {
                         chessBoard[0][7] = null;
                         chessBoard[0][5].setXPos(500);
                         chessBoard[0][5].setYPos(0);
+                        chessBoard[0][5].setPosition("f1");
                     } else if ((touched.getXPOS() - initialX) <= -200) {
                         chessBoard[0][3] = chessBoard[0][0];
                         chessBoard[0][0] = null;
                         chessBoard[0][3].setXPos(300);
                         chessBoard[0][3].setYPos(0);
+                        chessBoard[0][3].setPosition("d1");
+
                     }
                 } else {
                     if ((touched.getXPOS() - initialX >= 200)) {
@@ -148,11 +151,15 @@ public class MyInputProcessor implements InputProcessor {
                         chessBoard[7][7] = null;
                         chessBoard[7][5].setXPos(500);
                         chessBoard[7][5].setYPos(700);
+                        chessBoard[7][5].setPosition("f8");
+
                     } else if ((touched.getXPOS() - initialX) <= -200) {
                         chessBoard[7][3] = chessBoard[7][0];
                         chessBoard[7][0] = null;
                         chessBoard[7][3].setXPos(300);
                         chessBoard[7][3].setYPos(700);
+                        chessBoard[7][3].setPosition("d8");
+
                     }
                 }
             }

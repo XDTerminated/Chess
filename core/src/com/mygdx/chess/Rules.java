@@ -201,7 +201,7 @@ public class Rules {
         else if (piece.getName().equals("King")) {
             // Castling
             if (Math.abs(yChange) == 0 && xChange >= 200) {
-                if (piece.getHasMoved() && kingInCheck(position, piece.getXPOS()/100, piece.getYPOS()/100, piece)) {
+                if (piece.getHasMoved() || kingInCheck(position, piece.getXPOS()/100 - 2, piece.getYPOS()/100, piece)) {
                     return false;
                 }
 
@@ -224,7 +224,10 @@ public class Rules {
                         position[0][6] =  position[0][5];
                         position[0][5] = null;
                         if (!kingInCheck(position, 6, 0, piece)) {
+                            piece.setXPos(600);
+                            piece.setYPos(0);
                             castle = true;
+                            position[0][6].setPosition("g1");
                             return true;
                         }
                         position[0][4] = position[0][6];
@@ -258,6 +261,9 @@ public class Rules {
                         position[7][5] = null;
                         if (!kingInCheck(position, 6, 7, piece)) {
                             castle = true;
+                            piece.setXPos(600);
+                            piece.setYPos(700);
+                            position[7][6].setPosition("g8");
                             return true;
                         }
                         position[7][4] = position[7][6];
@@ -271,7 +277,7 @@ public class Rules {
 
                 }
             } else if (Math.abs(yChange) == 0 && xChange <= -200) {
-                if (piece.getHasMoved() && kingInCheck(position, piece.getXPOS()/100, piece.getYPOS()/100, piece)) {
+                if (piece.getHasMoved() || kingInCheck(position, piece.getXPOS()/100 + 2, piece.getYPOS()/100, piece)) {
                     return false;
                 }
 
@@ -297,7 +303,7 @@ public class Rules {
                         if (!kingInCheck(position, 2, 0, piece)) {
                             piece.setXPos(200);
                             piece.setYPos(0);
-
+                            position[0][2].setPosition("c1");
                             castle = true;
                             return true;
                         }
@@ -331,6 +337,7 @@ public class Rules {
                         if (!kingInCheck(position, 2, 7, piece)) {
                             piece.setXPos(200);
                             piece.setYPos(700);
+                            position[7][2].setPosition("c8");
                             castle = true;
                             return true;
                         }
