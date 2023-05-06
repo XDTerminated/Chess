@@ -201,7 +201,7 @@ public class Rules {
         else if (piece.getName().equals("King")) {
             // Castling
             if (Math.abs(yChange) == 0 && xChange >= 200) {
-                if (piece.getHasMoved() || kingInCheck(position, piece.getXPOS()/100 - 2, piece.getYPOS()/100, piece)) {
+                if (piece.getHasMoved() || kingInCheck(position, piece.getXPOS()/100 - xChange/100, piece.getYPOS()/100, piece)) {
                     return false;
                 }
 
@@ -277,7 +277,7 @@ public class Rules {
 
                 }
             } else if (Math.abs(yChange) == 0 && xChange <= -200) {
-                if (piece.getHasMoved() || kingInCheck(position, piece.getXPOS()/100 + 2, piece.getYPOS()/100, piece)) {
+                if (piece.getHasMoved() || kingInCheck(position, piece.getXPOS()/100 - xChange/100, piece.getYPOS()/100, piece)) {
                     return false;
                 }
 
@@ -704,8 +704,6 @@ public class Rules {
             y4--;
             x4++;
         }
-
         return false;
     }
-
 }
